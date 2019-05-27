@@ -139,6 +139,7 @@ func main() {
 
 	args = append([]string{"-H", "localhost:2375"}, args...)
 	cmd := exec.Command("docker", args...)
+	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
