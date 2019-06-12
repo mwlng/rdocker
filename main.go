@@ -17,9 +17,14 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+const (
+	listenPort = 2308
+)
+
 var (
-	keyFile string
-	tgtHost string
+	username string
+	keyFile  string
+	tgtHost  string
 
 	localEndpoint  sshtunnel.Endpoint
 	serverEndpoint sshtunnel.Endpoint
@@ -29,8 +34,12 @@ var (
 )
 
 func defineFlags() {
+	flag.StringVar(&username, "u", "", "ssh user")
+	flag.StringVar(&username, "user", "", "ssh user")
 	flag.StringVar(&keyFile, "i", "", "ssh key file")
-	flag.StringVar(&tgtHost, "H", "", "Target host")
+	flag.StringVar(&keyFile, "key", "", "ssh key file")
+	flag.StringVar(&tgtHost, "H", "", "Target hostname")
+	flag.StringVar(&tgtHost, "host", "", "Target hostname")
 }
 
 func init() {
@@ -40,7 +49,7 @@ func init() {
 		Proto: "tcp",
 		Addr: sshtunnel.IPAddr{
 			Host: "localhost",
-			Port: 2375,
+			Port: listenPort,
 		},
 	}
 
@@ -62,6 +71,9 @@ func init() {
 func validateFlags() error {
 	if tgtHost == "" {
 		return errors.New("Missing -H/--host flag")
+	}
+	if username == "" {
+		return errors.New("Missing -u/--user flag")
 	}
 	return nil
 }
@@ -111,7 +123,7 @@ func main() {
 	}
 
 	sshConfig = ssh.ClientConfig{
-		User: "ubuntu",
+		User: username,
 		Auth: []ssh.AuthMethod{ssh.PublicKeys(prikey)},
 		HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
 			return nil
@@ -136,9 +148,9 @@ func main() {
 
 	go tunnel.Start()
 
-	time.Sleep(time.Second * 3)
+	time.Sleep(time.Second * 2)
 
-	args = append([]string{"-H", "localhost:2375"}, args...)
+	args = append([]string{"-H", fmt.Sprintf("localhost:%d", listenPort)}, args...)
 	cmd := exec.Command("docker", args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout

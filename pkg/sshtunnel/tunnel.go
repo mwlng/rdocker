@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"os"
 	"sync"
 
 	"golang.org/x/crypto/ssh"
@@ -41,25 +42,25 @@ func (tunnel *SSHTunnel) forward(localConn net.Conn) {
 	serverAddr, err := tunnel.Server.ToString()
 	if err != nil {
 		fmt.Printf("%s\n", err)
-		return
+		os.Exit(1)
 	}
 
 	remoteAddr, err := tunnel.Remote.ToString()
 	if err != nil {
 		fmt.Printf("%s\n", err)
-		return
+		os.Exit(1)
 	}
 
 	serverConn, err := ssh.Dial("tcp", serverAddr, tunnel.Config)
 	if err != nil {
 		fmt.Printf("Server dial error: %s\n", err)
-		return
+		os.Exit(1)
 	}
 
 	remoteConn, err := serverConn.Dial("unix", remoteAddr)
 	if err != nil {
 		fmt.Printf("Remote dial error: %s\n", err)
-		return
+		os.Exit(1)
 	}
 	defer localConn.Close()
 	defer remoteConn.Close()
