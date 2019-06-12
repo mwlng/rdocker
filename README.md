@@ -6,6 +6,14 @@ rdocker is a remote docker command line. You can use it to send the Docker comma
 ## Prerequisite
 It requires Docker client to be installed on your computer.
 
+## Binary downloads
+
+* macOS \
+  [64-bit](https://drive.google.com/uc?export=download&id=1zITGe8_0kFCy5aqQiPdz5TDqUmJQBDgm)
+  | [MD5](https://drive.google.com/uc?export=download&id=1nf46HQUDa2YMR4PElZ1dBTEi6maKDFGe)
+* Linux \
+  [64-bit] | [MD5]
+  
 ### Examples
 1. Display running conaianers and their ids etc. 
  ```  
