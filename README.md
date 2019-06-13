@@ -12,7 +12,8 @@ It requires Docker client to be installed on your computer.
   [64-bit](https://drive.google.com/uc?export=download&id=1zITGe8_0kFCy5aqQiPdz5TDqUmJQBDgm)
   | [MD5](https://drive.google.com/uc?export=download&id=1nf46HQUDa2YMR4PElZ1dBTEi6maKDFGe)
 * Linux \
-  [64-bit] | [MD5]
+  [64-bit](https://drive.google.com/uc?export=download&id=1ZYftumJHuYBnfTRMixdGPIjdSrbBgRKl)
+  | [MD5](https://drive.google.com/uc?export=download&id=1AYtcVOKdV4BwZxY4sunDtSgZD_n_f6UU)
   
 ### Examples
 1. Display running conaianers and their ids etc. 
